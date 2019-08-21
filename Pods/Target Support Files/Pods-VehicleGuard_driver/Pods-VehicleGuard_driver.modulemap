@@ -1,0 +1,6 @@
+framework module Pods_VehicleGuard_driver {
+  umbrella header "Pods-VehicleGuard_driver-umbrella.h"
+
+  export *
+  module * { export * }
+}

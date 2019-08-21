@@ -1,0 +1,50 @@
+//
+//  XiangBaoChe.pch
+//  Xiang_driver
+//
+//  Created by mac on 2019/4/17.
+//  Copyright © 2019 chuanghu. All rights reserved.
+//
+
+#ifndef XiangBaoChe_pch
+#define XiangBaoChe_pch
+
+#pragma mark - <************************** 网络请求 **************************>
+#import "KORequestPost.h"
+#import <AFNetworking/AFNetworking.h>
+
+#pragma mark - <************************** 宏定义文件 **************************>
+#import "DefinesHeader.h"
+#import "XXRequestURL.h"
+
+#pragma mark - <************************** 自动布局 **************************>
+#import "UIView+CWNView.h"//xib中约束、字体快速适配，xib中视图圆角、边框快速设置等
+#import <Masonry/Masonry.h>
+
+#pragma mark - <************************** 控制器 **************************>
+#import "UIViewController+Based.h"//自由操控系统自带的navigationbar或，快速构建一个带导航或不带导航的页面。统一应用中所有导航；每个页面添加loadingView；每个页面支持任意位置侧滑手势；app页面使用统计等；
+
+
+#pragma mark - <************************** json-模型转化 **************************>
+#import "NSObject+InitData.h"//json转模型
+
+#pragma mark - <************************** 拓展 **************************>
+//视图
+#import "UIScrollView+ExtensionView.h"//列表空页面展示
+
+
+#pragma mark - <************************** 工具 **************************>
+//弹窗
+//#import "JXTAlertTools.h"
+#import <SDWebImage/SDImageCache.h>//图片加载
+#import "KONotificationCenter.h"//远程推送通知
+//上下啦刷新
+#import <MJRefresh/MJRefresh.h>
+#import "MJDIYFooter.h"
+#import "MJDIYHeader.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* XiangBaoChe_pch */
