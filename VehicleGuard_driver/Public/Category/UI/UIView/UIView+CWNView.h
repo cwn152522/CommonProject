@@ -27,3 +27,10 @@ IB_DESIGNABLE
 //单个约束适配
 @property(assign, nonatomic) IBInspectable BOOL adapterScreen;//单个约束的适配
 @end
+
+
+#pragma mark - <************************** xib中image改颜色 **************************>
+@interface UIImageView (Coloraful)
+//设置图片颜色
+@property(strong, nonatomic) IBInspectable UIColor *imageColor;//单个约束的适配
+@end

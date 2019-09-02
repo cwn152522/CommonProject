@@ -109,3 +109,16 @@
 
 
 
+
+#pragma mark - <************************** xib中image改颜色 **************************>
+@implementation UIImageView (Coloraful)
+- (void)setImageColor:(UIColor *)imageColor {
+    objc_setAssociatedObject(self, @selector(imageColor), imageColor , OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    self.image = [self.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+}
+-  (UIColor *)imageColor{
+    UIColor *imageColor = objc_getAssociatedObject(self, _cmd);
+    return imageColor;
+}
+
+@end

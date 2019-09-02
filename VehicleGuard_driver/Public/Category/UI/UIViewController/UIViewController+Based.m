@@ -41,7 +41,7 @@
     MBProgressHUD *juhua = objc_getAssociatedObject(self, _cmd);
     if (juhua==nil) {
         juhua = [[MBProgressHUD alloc] initWithView:self.view];
-//        juhua.label.text = @"正在加载";
+        //        juhua.label.text = @"正在加载";
         [self.view addSubview:juhua];
         [juhua mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(juhua.superview.mas_centerX);
@@ -77,14 +77,21 @@
     return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
 - (void)setNavigationBarHidden:(BOOL)navigationBarHidden{
-        objc_setAssociatedObject(self, @selector(navigationBarHidden), @(navigationBarHidden), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(navigationBarHidden), @(navigationBarHidden), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-  (BOOL)navigationBarHiddenNoAnimated{
+    return [objc_getAssociatedObject(self, _cmd) boolValue];
+}
+- (void)setNavigationBarHiddenNoAnimated:(BOOL)navigationBarHiddenNoAnimated{
+    objc_setAssociatedObject(self, @selector(navigationBarHiddenNoAnimated), @(navigationBarHiddenNoAnimated), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (BOOL (^)())navigationBarBackBtnClickBlock{
     return objc_getAssociatedObject(self, _cmd);
 }
 - (void)setNavigationBarBackBtnClickBlock:(BOOL (^)())navigationBarBackBtnClickBlock{
-     objc_setAssociatedObject(self, @selector(navigationBarBackBtnClickBlock), navigationBarBackBtnClickBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(navigationBarBackBtnClickBlock), navigationBarBackBtnClickBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 #pragma mark - ***************************************---返回手势---***************************************
@@ -136,7 +143,7 @@
     [self exchangeMethod:@selector(viewSafeAreaInsetsDidChange)];
     [self exchangeMethod:NSSelectorFromString(@"dealloc")];
     [self exchangeMethod:@selector(viewWillAppear:)];
-     [self exchangeMethod:@selector(viewDidAppear:)];
+    [self exchangeMethod:@selector(viewDidAppear:)];
     [self exchangeMethod:@selector(viewWillDisappear:)];
     [self exchangeMethod:@selector(viewDidDisappear:)];
 }
@@ -168,7 +175,7 @@
         if(self.navigationBarHidden== YES){//如果不需要导航，则实现代理(触发在viewWillAppear前，因此返回手势触发进行页面切换时，不会看到突然黑屏)，在代理中将导航栏隐藏起来即可
             self.navigationController.delegate = self;
         }else{
-           [self.navigationController setNavigationBarHidden:NO animated:YES];//动画写yes，否则可能出现黑屏
+            [self.navigationController setNavigationBarHidden:NO animated:YES];//动画写yes，否则可能出现黑屏
         }
     }
     //2.默认相应系统边缘手势
@@ -181,6 +188,7 @@
 - (void)jx_viewDidAppear:(BOOL)animated{
     //页面统计
     [MobClick beginLogPageView:NSStringFromClass(self.class)];
+    self.navigationBarHiddenNoAnimated = NO;
     [self jx_viewDidAppear:animated];
 }
 - (void)jx_viewWillDisappear:(BOOL)animated{
@@ -198,7 +206,8 @@
     if(self.navigationBarHidden == YES){
         // 判断要显示的控制器是否是自己
         BOOL isShowHomePage = [viewController isKindOfClass:[self class]];
-        [self.navigationController setNavigationBarHidden:isShowHomePage animated:YES];//动画写yes否则可能出现黑屏，隐藏后controller原点在y=0，默认原点在y=64
+        BOOL animated = !self.navigationBarHiddenNoAnimated;
+        [self.navigationController setNavigationBarHidden:isShowHomePage animated:animated];//动画写yes否则可能出现黑屏，隐藏后controller原点在y=0，默认原点在y=64
     }
 }
 - (void)leftAction{
